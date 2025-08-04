@@ -25,10 +25,12 @@ async function loadLeaderboard() {
   const container = document.getElementById("leaderboard");
   container.innerHTML = "";
 
-  snapshot.forEach(doc => {
+  snapshot.forEach((doc, index) => {
     const data = doc.data();
+    const badge = index === 0 ? "🥇" : index === 1 ? "🥈" : index === 2 ? "🥉" : "";
     const row = document.createElement("div");
-    row.innerHTML = `<strong>${data.name}</strong> – ${data.amount} ETH`;
+    row.className = index < 3 ? "entry highlight" : "entry";
+    row.innerHTML = `<span><span class="rank-badge">${badge}</span>${index + 1}. ${data.name}</span><span>💸 ${data.amount} ETH</span>`;
     container.appendChild(row);
   });
 }
@@ -39,16 +41,16 @@ async function loadLiveFeed() {
   const q = query(feedRef, orderBy("timestamp", "desc"), limit(5));
   const snapshot = await getDocs(q);
 
-  const container = document.querySelector(".live-feed");
-  const feedList = document.createElement("div");
-  feedList.innerHTML = "<h2>Live Donation Feed</h2>";
+  const container = document.getElementById("liveFeed");
+  container.innerHTML = "";
+
   snapshot.forEach(doc => {
     const data = doc.data();
     const entry = document.createElement("div");
-    entry.innerHTML = `<span>${data.name}</span> donated <strong>${data.amount}</strong> ETH`;
-    feedList.appendChild(entry);
+    entry.className = "feed-item";
+    entry.innerHTML = `<span>${data.name}</span><span>✨ Donated ${data.amount} ETH</span>`;
+    container.appendChild(entry);
   });
-  container.appendChild(feedList);
 }
 
 // 🧱 Load Memory Wall
@@ -57,22 +59,17 @@ async function loadMemoryWall() {
   const q = query(memoryRef, orderBy("timestamp", "desc"), limit(5));
   const snapshot = await getDocs(q);
 
-  const container = document.querySelector(".memory-wall");
-  const wall = document.createElement("div");
-  wall.innerHTML = "<h2>🕯 Memory Wall</h2>";
+  const container = document.getElementById("memoryWall");
+  container.innerHTML = "";
+
   snapshot.forEach(doc => {
     const data = doc.data();
     const message = document.createElement("div");
-    message.innerHTML = `<span>${data.name}</span>: "<em>${data.message}</em>"`;
-    wall.appendChild(message);
+    message.className = "memory-message";
+    message.innerHTML = `<span>${data.name}</span><span>“${data.message}”</span>`;
+    container.appendChild(message);
   });
-  container.appendChild(wall);
 }
-
-document.getElementById("leaderboard")
-document.getElementById("liveFeed")
-document.getElementById("memoryWall")
-
 
 // Run all
 loadLeaderboard();
