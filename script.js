@@ -69,6 +69,11 @@ async function loadMemoryWall() {
   container.appendChild(wall);
 }
 
+document.getElementById("leaderboard")
+document.getElementById("liveFeed")
+document.getElementById("memoryWall")
+
+
 // Run all
 loadLeaderboard();
 loadLiveFeed();
