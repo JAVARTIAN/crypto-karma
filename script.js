@@ -4,12 +4,12 @@ import { getFirestore, collection, getDocs, query, orderBy, limit } from "https:
 
 // Replace with your Firebase config
 const firebaseConfig = {
-  apiKey: "AIzaSyALNskQdygbpx9mByxHIlRxGLC40lWd7Gs",
+  apiKey: "",
   authDomain: "crypto-karma.firebaseapp.com",
   projectId: "crypto-karma",
   storageBucket: "crypto-karma.appspot.com",
   messagingSenderId: "693119383161",
-  appId: "1:693119383161:web:217ff1ffe2efc0b80ac6a8"
+  appId: ""
 };
 
 
