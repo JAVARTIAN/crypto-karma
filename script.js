@@ -9,7 +9,7 @@ const firebaseConfig = {
   projectId: "crypto-karma",
   storageBucket: "crypto-karma.appspot.com",
   messagingSenderId: "693119383161",
-  appId: ""
+  appId: "1:693119383161:web:217ff1ffe2efc0b80ac6a8"
 };
 
 
