@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hall of Crypto Karma</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Orbitron', sans-serif;
+      background: linear-gradient(145deg, #0a001a, #1a0033);
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    header {
+      padding: 60px 20px 20px;
+      text-align: center;
+    }
+    header h1 {
+      font-size: 3em;
+      margin: 0;
+      color: #00ffff;
+      text-shadow: 0 0 15px #00ffff;
+    }
+    header p {
+      font-size: 1.2em;
+      color: #ccc;
+      margin-top: 10px;
+    }
+    .cta-button {
+      background: #ff00ff;
+      color: #fff;
+      padding: 15px 30px;
+      font-size: 1.2em;
+      text-decoration: none;
+      margin-top: 30px;
+      display: inline-block;
+      border-radius: 5px;
+      box-shadow: 0 0 15px #ff00ff;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .cta-button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 25px #ff00ff;
+    }
+    .leaderboard {
+      width: 90%;
+      max-width: 800px;
+      margin: 50px auto;
+      background: #1a0033;
+      border-radius: 15px;
+      padding: 25px;
+      box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+    }
+    .leaderboard h2, .live-feed h2, .memory-wall h2 {
+      text-align: center;
+      margin-bottom: 25px;
+      color: #00ffff;
+      font-size: 1.8em;
+      text-shadow: 0 0 8px #00ffff;
+    }
+    .entry, .feed-item, .memory-message {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 0;
+      border-bottom: 1px solid #333;
+      font-size: 1.1em;
+    }
+    .entry.highlight {
+      background: #330044;
+      font-weight: bold;
+      color: #00ffff;
+      animation: glow 2s infinite alternate;
+    }
+    @keyframes glow {
+      from { box-shadow: 0 0 10px #00ffff; }
+      to { box-shadow: 0 0 20px #00ffff; }
+    }
+    .entry:last-child, .feed-item:last-child, .memory-message:last-child {
+      border-bottom: none;
+    }
+    .rank-badge {
+      margin-right: 10px;
+      font-size: 1.2em;
+    }
+    .live-feed, .memory-wall {
+      width: 90%;
+      max-width: 800px;
+      margin: 30px auto;
+      background: #1a0033;
+      border-radius: 15px;
+      padding: 20px;
+      box-shadow: 0 0 20px rgba(255, 0, 255, 0.2);
+    }
+    .feed-item span:first-child {
+      color: #ff00ff;
+    }
+    .memory-message {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .memory-message span:first-child {
+      color: #00ffff;
+      margin-bottom: 5px;
+    }
+    footer {
+      margin: 80px 0 40px;
+      font-size: 0.9em;
+      color: #aaa;
+      text-align: center;
+    }
+  </style>
+  <script>
+    function showConfetti() {
+      const confetti = document.createElement('div');
+      confetti.style.position = 'fixed';
+      confetti.style.top = 0;
+      confetti.style.left = 0;
+      confetti.style.width = '100%';
+      confetti.style.height = '100%';
+      confetti.style.pointerEvents = 'none';
+      confetti.style.zIndex = 9999;
+      confetti.innerHTML = '<canvas id="confetti-canvas"></canvas>';
+      document.body.appendChild(confetti);
+      const script = document.createElement('script');
+      script.src = 'https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js';
+      script.onload = () => {
+        const myConfetti = window.confetti.create(document.getElementById('confetti-canvas'), { resize: true });
+        myConfetti({
+          particleCount: 200,
+          spread: 160
+        });
+        setTimeout(() => confetti.remove(), 3000);
+      };
+      document.body.appendChild(script);
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      document.querySelector('.cta-button').addEventListener('click', (e) => {
+        e.preventDefault();
+        showConfetti();
+      });
+    });
+  </script>
+</head>
+<body>
+  <header>
+    <h1>Immortality Is Just a Transaction Away</h1>
+    <p>Pay in crypto. Leave your name in history. Top donors are displayed forever.</p>
+    <a href="#" class="cta-button">Become Immortal 🔥</a>
+  </header>
+
+  <section class="leaderboard">
+    <h2>🔥 Hall of Crypto Karma 🔥</h2>
+    <div class="entry highlight">
+      <span><span class="rank-badge">🥇</span>1. 0xKingOfETH</span>
+      <span>💸 12.3 ETH</span>
+    </div>
+    <div class="entry highlight">
+      <span><span class="rank-badge">🥈</span>2. 0xShadowWhale</span>
+      <span>💸 9.6 ETH</span>
+    </div>
+    <div class="entry highlight">
+      <span><span class="rank-badge">🥉</span>3. 0xGlitchMonk</span>
+      <span>💸 7.1 ETH</span>
+    </div>
+    <div class="entry">
+      <span>4. 0xMoonBag</span>
+      <span>💸 4.2 ETH</span>
+    </div>
+    <div class="entry">
+      <span>5. 0xSimianDAO</span>
+      <span>💸 2.7 ETH</span>
+    </div>
+    <div class="entry">
+      <span>6. 0xEntropyLord</span>
+      <span>💸 1.9 ETH</span>
+    </div>
+    <div class="entry">
+      <span>7. 0xTinyFlexer</span>
+      <span>💸 1.2 ETH</span>
+    </div>
+    <div class="entry">
+      <span>8. 0xRuggedRonin</span>
+      <span>💸 0.9 ETH</span>
+    </div>
+    <div class="entry">
+      <span>9. 0xWhaleDust</span>
+      <span>💸 0.7 ETH</span>
+    </div>
+    <div class="entry">
+      <span>10. 0xSatoshiSoul</span>
+      <span>💸 0.5 ETH</span>
+    </div>
+  </section>
+
+  <section class="live-feed">
+    <h2>⚡ Live Donation Feed</h2>
+    <div class="feed-item"><span>0xDegenBard</span><span>✨ Donated 0.3 ETH</span></div>
+    <div class="feed-item"><span>0xAnonWitch</span><span>✨ Donated 1.0 ETH</span></div>
+    <div class="feed-item"><span>0xLaserEyes</span><span>✨ Donated 0.6 ETH</span></div>
+  </section>
+
+  <section class="memory-wall">
+    <h2>💭 Memory Wall</h2>
+    <div class="memory-message">
+      <span>0xMirrorSoul</span>
+      <span>“Let the chain remember who I was.”</span>
+    </div>
+    <div class="memory-message">
+      <span>0xPixelSaint</span>
+      <span>“In crypto we trust, in memory we dwell.”</span>
+    </div>
+    <div class="memory-message">
+      <span>0xDustEcho</span>
+      <span>“A trace, a spark, a whisper on the ledger.”</span>
+    </div>
+  </section>
+
+  <footer>
+    This is a public karma experiment. All donations go directly to the creator. No refunds. No promises. Only memory.
+  </footer>
+</body>
+</html>
