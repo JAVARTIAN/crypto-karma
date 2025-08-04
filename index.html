@@ -1,15 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!-- Page Metadata and Styles -->
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Crypto Karma – Immortality is just a transaction away. Top donors are remembered forever.">
+ <meta name="description" content="Crypto Karma – Immortality is just a transaction away. Top donors are remembered forever.">
   <meta name="keywords" content="crypto, karma, donation, leaderboard, memory wall, ethereum, web3">
-  <meta name="author" content="Jacques Vartabedian">
   <title>Hall of Crypto Karma</title>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap" rel="stylesheet">
   <link rel="icon" href="favicon.ico" type="image/x-icon">
   <style>
+    /* Basic Page and Layout Styling */
     body {
       margin: 0;
       font-family: 'Orbitron', sans-serif;
@@ -19,6 +20,8 @@
       flex-direction: column;
       align-items: center;
     }
+
+    /* Header Section Styling */
     header {
       padding: 60px 20px 20px;
       text-align: center;
@@ -34,6 +37,8 @@
       color: #ccc;
       margin-top: 10px;
     }
+
+    /* Donate Button Styling */
     .cta-button {
       background: #ff00ff;
       color: #fff;
@@ -50,7 +55,9 @@
       transform: scale(1.05);
       box-shadow: 0 0 25px #ff00ff;
     }
-    .leaderboard {
+
+    /* Leaderboard and Feed Styling */
+    .leaderboard, .live-feed, .memory-wall {
       width: 90%;
       max-width: 800px;
       margin: 50px auto;
@@ -59,6 +66,8 @@
       padding: 25px;
       box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
     }
+
+    /* Section Headers Styling */
     .leaderboard h2, .live-feed h2, .memory-wall h2 {
       text-align: center;
       margin-bottom: 25px;
@@ -66,6 +75,8 @@
       font-size: 1.8em;
       text-shadow: 0 0 8px #00ffff;
     }
+
+    /* Entry Rows */
     .entry, .feed-item, .memory-message {
       display: flex;
       justify-content: space-between;
@@ -87,18 +98,11 @@
     .entry:last-child, .feed-item:last-child, .memory-message:last-child {
       border-bottom: none;
     }
+
+    /* Badges and Wall Styling */
     .rank-badge {
       margin-right: 10px;
       font-size: 1.2em;
-    }
-    .live-feed, .memory-wall {
-      width: 90%;
-      max-width: 800px;
-      margin: 30px auto;
-      background: #1a0033;
-      border-radius: 15px;
-      padding: 20px;
-      box-shadow: 0 0 20px rgba(255, 0, 255, 0.2);
     }
     .feed-item span:first-child {
       color: #ff00ff;
@@ -111,6 +115,8 @@
       color: #00ffff;
       margin-bottom: 5px;
     }
+
+    /* Footer */
     footer {
       margin: 80px 0 40px;
       font-size: 0.9em;
@@ -118,6 +124,8 @@
       text-align: center;
     }
   </style>
+
+  <!-- Confetti Script for Celebration Effect -->
   <script>
     function showConfetti() {
       const confetti = document.createElement('div');
@@ -147,61 +155,37 @@
       document.querySelector('.cta-button').addEventListener('click', (e) => {
         e.preventDefault();
         showConfetti();
+        window.open('https://commerce.coinbase.com/checkout/a32bcdb9-fd81-4412-a821-559f4fedc9a3', '_blank');
       });
     });
   </script>
 </head>
 <body>
+  <!-- Top of the Page Header -->
   <header>
     <h1>Immortality Is Just a Transaction Away</h1>
     <p>Pay in crypto. Leave your name in history. Top donors are displayed forever.</p>
+    <!-- Coinbase Commerce checkout button with confetti trigger -->
     <a href="#" class="cta-button">Become Immortal 🔥</a>
   </header>
 
+  <!-- Leaderboard Section -->
   <section class="leaderboard">
     <h2>🔥 Hall of Crypto Karma 🔥</h2>
-    <div class="entry highlight">
-      <span><span class="rank-badge">🥇</span>1. 0xKingOfETH</span>
-      <span>💸 12.3 ETH</span>
-    </div>
-    <div class="entry highlight">
-      <span><span class="rank-badge">🥈</span>2. 0xShadowWhale</span>
-      <span>💸 9.6 ETH</span>
-    </div>
-    <div class="entry highlight">
-      <span><span class="rank-badge">🥉</span>3. 0xGlitchMonk</span>
-      <span>💸 7.1 ETH</span>
-    </div>
-    <div class="entry">
-      <span>4. 0xMoonBag</span>
-      <span>💸 4.2 ETH</span>
-    </div>
-    <div class="entry">
-      <span>5. 0xSimianDAO</span>
-      <span>💸 2.7 ETH</span>
-    </div>
-    <div class="entry">
-      <span>6. 0xEntropyLord</span>
-      <span>💸 1.9 ETH</span>
-    </div>
-    <div class="entry">
-      <span>7. 0xTinyFlexer</span>
-      <span>💸 1.2 ETH</span>
-    </div>
-    <div class="entry">
-      <span>8. 0xRuggedRonin</span>
-      <span>💸 0.9 ETH</span>
-    </div>
-    <div class="entry">
-      <span>9. 0xWhaleDust</span>
-      <span>💸 0.7 ETH</span>
-    </div>
-    <div class="entry">
-      <span>10. 0xSatoshiSoul</span>
-      <span>💸 0.5 ETH</span>
-    </div>
+    <!-- Top 10 donor entries -->
+    <div class="entry highlight"><span><span class="rank-badge">🥇</span>1. 0xKingOfETH</span><span>💸 12.3 ETH</span></div>
+    <div class="entry highlight"><span><span class="rank-badge">🥈</span>2. 0xShadowWhale</span><span>💸 9.6 ETH</span></div>
+    <div class="entry highlight"><span><span class="rank-badge">🥉</span>3. 0xGlitchMonk</span><span>💸 7.1 ETH</span></div>
+    <div class="entry"><span>4. 0xMoonBag</span><span>💸 4.2 ETH</span></div>
+    <div class="entry"><span>5. 0xSimianDAO</span><span>💸 2.7 ETH</span></div>
+    <div class="entry"><span>6. 0xEntropyLord</span><span>💸 1.9 ETH</span></div>
+    <div class="entry"><span>7. 0xTinyFlexer</span><span>💸 1.2 ETH</span></div>
+    <div class="entry"><span>8. 0xRuggedRonin</span><span>💸 0.9 ETH</span></div>
+    <div class="entry"><span>9. 0xWhaleDust</span><span>💸 0.7 ETH</span></div>
+    <div class="entry"><span>10. 0xSatoshiSoul</span><span>💸 0.5 ETH</span></div>
   </section>
 
+  <!-- Live Feed Section -->
   <section class="live-feed">
     <h2>⚡ Live Donation Feed</h2>
     <div class="feed-item"><span>0xDegenBard</span><span>✨ Donated 0.3 ETH</span></div>
@@ -209,24 +193,18 @@
     <div class="feed-item"><span>0xLaserEyes</span><span>✨ Donated 0.6 ETH</span></div>
   </section>
 
+  <!-- Memory Wall Section -->
   <section class="memory-wall">
     <h2>💭 Memory Wall</h2>
-    <div class="memory-message">
-      <span>0xMirrorSoul</span>
-      <span>“Let the chain remember who I was.”</span>
-    </div>
-    <div class="memory-message">
-      <span>0xPixelSaint</span>
-      <span>“In crypto we trust, in memory we dwell.”</span>
-    </div>
-    <div class="memory-message">
-      <span>0xDustEcho</span>
-      <span>“A trace, a spark, a whisper on the ledger.”</span>
-    </div>
+    <div class="memory-message"><span>0xMirrorSoul</span><span>“Let the chain remember who I was.”</span></div>
+    <div class="memory-message"><span>0xPixelSaint</span><span>“In crypto we trust, in memory we dwell.”</span></div>
+    <div class="memory-message"><span>0xDustEcho</span><span>“A trace, a spark, a whisper on the ledger.”</span></div>
   </section>
 
+  <!-- Footer Disclaimer -->
   <footer>
     This is a public karma experiment. All donations go directly to the creator. No refunds. No promises. Only memory.
   </footer>
 </body>
 </html>
+
