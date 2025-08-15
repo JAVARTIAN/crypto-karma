@@ -1,16 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- Page Metadata and Styles -->
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
- <meta name="description" content="Crypto Karma – Immortality is just a transaction away. Top donors are remembered forever.">
-  <meta name="keywords" content="crypto, karma, donation, leaderboard, memory wall, ethereum, web3">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Crypto Karma – Immortality is just a transaction away. Top donors are remembered forever." />
+  <meta name="keywords" content="crypto, karma, donation, leaderboard, memory wall, ethereum, web3" />
   <title>Hall of Crypto Karma</title>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap" rel="stylesheet">
-  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap" rel="stylesheet" />
+  <link rel="icon" href="favicon.ico" type="image/x-icon" />
+
   <style>
-    /* Basic Page and Layout Styling */
     body {
       margin: 0;
       font-family: 'Orbitron', sans-serif;
@@ -21,24 +20,24 @@
       align-items: center;
     }
 
-    /* Header Section Styling */
     header {
       padding: 60px 20px 20px;
       text-align: center;
     }
+
     header h1 {
       font-size: 3em;
       margin: 0;
       color: #00ffff;
       text-shadow: 0 0 15px #00ffff;
     }
+
     header p {
       font-size: 1.2em;
       color: #ccc;
       margin-top: 10px;
     }
 
-    /* Donate Button Styling */
     .cta-button {
       background: #ff00ff;
       color: #fff;
@@ -51,12 +50,12 @@
       box-shadow: 0 0 15px #ff00ff;
       transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
+
     .cta-button:hover {
       transform: scale(1.05);
       box-shadow: 0 0 25px #ff00ff;
     }
 
-    /* Leaderboard and Feed Styling */
     .leaderboard, .live-feed, .memory-wall {
       width: 90%;
       max-width: 800px;
@@ -67,7 +66,6 @@
       box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
     }
 
-    /* Section Headers Styling */
     .leaderboard h2, .live-feed h2, .memory-wall h2 {
       text-align: center;
       margin-bottom: 25px;
@@ -76,7 +74,6 @@
       text-shadow: 0 0 8px #00ffff;
     }
 
-    /* Entry Rows */
     .entry, .feed-item, .memory-message {
       display: flex;
       justify-content: space-between;
@@ -85,47 +82,136 @@
       border-bottom: 1px solid #333;
       font-size: 1.1em;
     }
+
     .entry.highlight {
       background: #330044;
       font-weight: bold;
       color: #00ffff;
       animation: glow 2s infinite alternate;
     }
+
     @keyframes glow {
       from { box-shadow: 0 0 10px #00ffff; }
       to { box-shadow: 0 0 20px #00ffff; }
     }
+
     .entry:last-child, .feed-item:last-child, .memory-message:last-child {
       border-bottom: none;
     }
 
-    /* Badges and Wall Styling */
     .rank-badge {
       margin-right: 10px;
       font-size: 1.2em;
     }
+
     .feed-item span:first-child {
       color: #ff00ff;
     }
+
     .memory-message {
       flex-direction: column;
       align-items: flex-start;
     }
+
     .memory-message span:first-child {
       color: #00ffff;
       margin-bottom: 5px;
     }
 
-    /* Footer */
     footer {
       margin: 80px 0 40px;
       font-size: 0.9em;
       color: #aaa;
       text-align: center;
     }
-  </style>
 
-  <!-- Confetti Script for Celebration Effect -->
+    /* MODAL */
+    #donationModal {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(10, 0, 30, 0.85);
+      backdrop-filter: blur(5px);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+    }
+
+    .modal-content {
+      background: #1a0033;
+      padding: 40px;
+      border-radius: 15px;
+      box-shadow: 0 0 20px rgba(255, 0, 255, 0.3);
+      text-align: center;
+      max-width: 400px;
+      width: 90%;
+    }
+
+    .modal-content h2 {
+      color: #00ffff;
+      margin-bottom: 10px;
+    }
+
+    .modal-content input {
+      width: 100%;
+      margin: 10px 0;
+      padding: 12px;
+      border-radius: 8px;
+      border: none;
+      background: #330044;
+      color: #fff;
+      font-size: 1em;
+      box-shadow: inset 0 0 8px rgba(255,255,255,0.1);
+    }
+  </style>
+</head>
+
+<body>
+  <!-- HEADER -->
+  <header>
+    <h1>Immortality Is Just a Transaction Away</h1>
+    <p>Pay in crypto. Leave your name in history. Top donors are displayed forever.</p>
+    <a href="#" class="cta-button" id="openModalBtn">Become Immortal 🔥</a>
+  </header>
+
+  <!-- MODAL -->
+  <div id="donationModal">
+    <div class="modal-content">
+      <h2>One Last Step 🧠</h2>
+      <p style="color:#ccc;">(Optional) Leave a name or dedication to appear on the wall</p>
+      <input type="text" id="walletName" placeholder="Wallet or ENS name" />
+      <input type="text" id="displayName" placeholder="Dedication / message" />
+      <button id="submitDonation" class="cta-button">Send & Continue</button>
+      <button id="closeModal" style="margin-top:15px;background:none;border:none;color:#999;cursor:pointer;">Cancel</button>
+    </div>
+  </div>
+
+  <!-- CONTENT SECTIONS -->
+  <section class="leaderboard">
+    <h2>🔥 Hall of Crypto Karma 🔥</h2>
+    <div id="leaderboard">Loading...</div>
+  </section>
+
+  <section class="live-feed">
+    <h2>⚡ Live Donation Feed</h2>
+    <div id="liveFeed">Loading...</div>
+  </section>
+
+  <section class="memory-wall">
+    <h2>💭 Memory Wall</h2>
+    <div id="memoryWall">Loading...</div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    This is a public karma experiment. All donations go directly to the creator. No refunds. No promises. Only memory.
+  </footer>
+
+  <!-- Firebase Leaderboard Script -->
+  <script type="module" src="script.js"></script>
+
+  <!-- Modal & Checkout Logic -->
   <script>
     function showConfetti() {
       const confetti = document.createElement('div');
@@ -135,67 +221,55 @@
       confetti.style.width = '100%';
       confetti.style.height = '100%';
       confetti.style.pointerEvents = 'none';
-      confetti.style.zIndex = 9999;
+      confetti.style.zIndex = 9998;
       confetti.innerHTML = '<canvas id="confetti-canvas"></canvas>';
       document.body.appendChild(confetti);
       const script = document.createElement('script');
       script.src = 'https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js';
       script.onload = () => {
         const myConfetti = window.confetti.create(document.getElementById('confetti-canvas'), { resize: true });
-        myConfetti({
-          particleCount: 200,
-          spread: 160
-        });
+        myConfetti({ particleCount: 200, spread: 160 });
         setTimeout(() => confetti.remove(), 3000);
       };
       document.body.appendChild(script);
     }
 
-    document.addEventListener('DOMContentLoaded', () => {
-      document.querySelector('.cta-button').addEventListener('click', (e) => {
-        e.preventDefault();
-        showConfetti();
-        window.open('https://commerce.coinbase.com/checkout/a32bcdb9-fd81-4412-a821-559f4fedc9a3', '_blank');
-      });
+    document.getElementById('openModalBtn').addEventListener('click', (e) => {
+      e.preventDefault();
+      document.getElementById('donationModal').style.display = 'flex';
+    });
+
+    document.getElementById('closeModal').addEventListener('click', () => {
+      document.getElementById('donationModal').style.display = 'none';
+    });
+
+    document.getElementById('submitDonation').addEventListener('click', async () => {
+      const walletName = document.getElementById('walletName').value.trim();
+      const displayName = document.getElementById('displayName').value.trim();
+
+      try {
+        const res = await fetch('https://us-central1-crypto-karma.cloudfunctions.net/api/create-checkout', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ walletName, displayName })
+        });
+
+        const { checkoutUrl } = await res.json();
+
+        if (checkoutUrl) {
+          showConfetti();
+          document.getElementById('donationModal').style.display = 'none';
+          setTimeout(() => {
+            window.location.href = checkoutUrl;
+          }, 1200);
+        } else {
+          alert("Error creating donation link.");
+        }
+      } catch (err) {
+        console.error("Checkout Error:", err);
+        alert("Something went wrong. Try again.");
+      }
     });
   </script>
-</head>
-<body>
-  <!-- Top of the Page Header -->
-  <header>
-    <h1>Immortality Is Just a Transaction Away</h1>
-    <p>Pay in crypto. Leave your name in history. Top donors are displayed forever.</p>
-    <!-- Coinbase Commerce checkout button with confetti trigger -->
-    <a href="#" class="cta-button">Become Immortal 🔥</a>
-  </header>
-
-  <section class="leaderboard">
-  <h2>🔥 Hall of Crypto Karma 🔥</h2>
-  <div id="leaderboard">Loading...</div>
-</section>
-
-<section class="live-feed">
-  <h2>⚡ Live Donation Feed</h2>
-  <div id="liveFeed">Loading...</div>
-</section>
-
-<section class="memory-wall">
-  <h2>💭 Memory Wall</h2>
-  <div id="memoryWall">Loading...</div>
-</section>
-
-
-
-
-  <!-- Footer Disclaimer -->
-  <footer>
-    This is a public karma experiment. All donations go directly to the creator. No refunds. No promises. Only memory.
-  </footer>
-
-
-  <script type="module" src="script.js"></script>
-
-
 </body>
 </html>
-
