@@ -243,7 +243,7 @@
       document.getElementById('donationModal').style.display = 'none';
     });
 
-    document.getElementById('submitDonation').addEventListener('click', async () => {
+   document.getElementById('submitDonation').addEventListener('click', async () => {
   const walletName = document.getElementById('walletName').value.trim();
   const displayName = document.getElementById('displayName').value.trim();
 
@@ -254,20 +254,19 @@
       body: JSON.stringify({ walletName, displayName })
     });
 
-    const text = await res.text();  // 🔍 capture raw response
+    const text = await res.text();
     console.log("🔥 DEBUG response text:", text);
 
-    const { checkoutUrl } = JSON.parse(text);
-
-    if (checkoutUrl) {
+    const json = JSON.parse(text);
+    if (json.checkoutUrl) {
       showConfetti();
       document.getElementById('donationModal').style.display = 'none';
       setTimeout(() => {
-        window.location.href = checkoutUrl;
+        window.location.href = json.checkoutUrl;
       }, 1200);
     } else {
-      alert("Missing checkout URL. See console.");
-      console.log("Parsed JSON:", JSON.parse(text));
+      alert("Missing checkout URL. Check console for details.");
+      console.log("Parsed JSON:", json);
     }
   } catch (err) {
     console.error("Checkout Error:", err);
