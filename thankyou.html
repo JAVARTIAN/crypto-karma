@@ -3,9 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Thank You | Crypto Karma</title>
-  <link rel="icon" href="favicon.ico" />
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet" />
+  <title>Crypto Karma – Thank You</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap" rel="stylesheet" />
   <style>
     body {
       margin: 0;
@@ -13,116 +12,52 @@
       background: linear-gradient(145deg, #0a001a, #1a0033);
       color: #fff;
       display: flex;
-      justify-content: center;
+      flex-direction: column;
       align-items: center;
-      min-height: 100vh;
-    }
-
-    .main {
-      width: 90%;
-      max-width: 700px;
-      background: #1a0033;
-      padding: 40px;
-      border-radius: 15px;
-      box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
+      justify-content: center;
+      height: 100vh;
       text-align: center;
+      padding: 0 20px;
     }
 
-    .headline {
-      font-size: 2.5em;
+    h1 {
+      font-size: 2.8em;
       color: #00ffff;
-      text-shadow: 0 0 12px #00ffff;
+      text-shadow: 0 0 15px #00ffff;
       margin-bottom: 10px;
     }
 
-    .subtext {
-      font-size: 1.1em;
+    p {
+      font-size: 1.2em;
       color: #ccc;
-      margin-bottom: 30px;
+      max-width: 500px;
+      margin: 0 auto 30px;
     }
 
-    .headline-sm {
-      font-size: 1.4em;
-      color: #ff00ff;
-      margin-bottom: 10px;
-    }
-
-    .input-area {
-      width: 100%;
-      height: 120px;
-      padding: 15px;
-      font-size: 1em;
-      border-radius: 10px;
-      border: none;
-      background: #330044;
-      color: #fff;
-      margin-bottom: 20px;
-      box-shadow: inset 0 0 8px rgba(255, 255, 255, 0.1);
-    }
-
-    .karma-button {
-      padding: 12px 30px;
+    a {
       background: #ff00ff;
       color: #fff;
+      padding: 14px 28px;
       font-size: 1.1em;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
+      text-decoration: none;
+      border-radius: 5px;
       box-shadow: 0 0 15px #ff00ff;
       transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
 
-    .karma-button:hover {
+    a:hover {
       transform: scale(1.05);
       box-shadow: 0 0 25px #ff00ff;
-    }
-
-    @media (max-width: 600px) {
-      .main {
-        padding: 30px 20px;
-      }
-
-      .headline {
-        font-size: 2em;
-      }
     }
   </style>
 </head>
 <body>
-
-  <div class="main">
-    <h1 class="headline">🙏 Thank You</h1>
-    <p class="subtext">You're now part of the Crypto Karma ritual.</p>
-
-    <h2 class="headline-sm">Leave a memory or message</h2>
-    <textarea id="memoryMessage" class="input-area" placeholder="Write your dedication..."></textarea>
-    <br />
-    <button onclick="submitMemory()" class="karma-button">Submit</button>
-  </div>
-
-  <script>
-    async function submitMemory() {
-      const message = document.getElementById('memoryMessage').value.trim();
-      if (!message) {
-        alert("Please write something first.");
-        return;
-      }
-
-      try {
-        await fetch("https://us-central1-crypto-karma.cloudfunctions.net/api/submit-memory", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ message })
-        });
-
-        alert("💌 Your message has been saved.");
-        document.getElementById('memoryMessage').value = '';
-      } catch (err) {
-        console.error("Error submitting memory:", err);
-        alert("Something went wrong. Try again later.");
-      }
-    }
-  </script>
-
+  <h1>You’re part of the Crypto Karma ritual 🔮</h1>
+  <p>
+    Your presence has been recorded in the chain.<br>
+    Your name is now etched in the blockchain of memory.<br><br>
+    Immortality isn’t far behind.
+  </p>
+  <a href="index.html">Return to Crypto Karma</a>
 </body>
 </html>
