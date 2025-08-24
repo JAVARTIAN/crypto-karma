@@ -2,40 +2,253 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>Hall of Crypto Karma</title>
   <meta name="description" content="Crypto Karma – Immortality is just a transaction away. Top donors are remembered forever." />
   <meta name="keywords" content="crypto, karma, donation, leaderboard, memory wall, ethereum, web3" />
-  <title>Hall of Crypto Karma</title>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap" rel="stylesheet" />
   <link rel="icon" href="favicon.ico" type="image/x-icon" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap" rel="stylesheet" />
+
   <style>
-    body { margin:0; font-family:'Orbitron',sans-serif; background:linear-gradient(145deg,#0a001a,#1a0033); color:#fff; display:flex; flex-direction:column; align-items:center; }
-    header { padding:60px 20px 20px; text-align:center; }
-    header h1 { font-size:3em; margin:0; color:#00ffff; text-shadow:0 0 15px #00ffff; }
-    header p { font-size:1.2em; color:#ccc; margin-top:10px; }
-    .cta-button { background:#ff00ff; color:#fff; padding:15px 30px; font-size:1.2em; text-decoration:none; margin-top:30px; display:inline-block; border-radius:5px; box-shadow:0 0 15px #ff00ff; transition:transform .2s ease,box-shadow .2s ease; }
-    .cta-button:hover { transform:scale(1.05); box-shadow:0 0 25px #ff00ff; }
-    .leaderboard,.live-feed,.memory-wall { width:90%; max-width:800px; margin:50px auto; background:#1a0033; border-radius:15px; padding:25px; box-shadow:0 0 20px rgba(0,255,255,.3); }
-    .leaderboard h2,.live-feed h2,.memory-wall h2 { text-align:center; margin-bottom:25px; color:#00ffff; font-size:1.8em; text-shadow:0 0 8px #00ffff; }
-    .entry,.feed-item,.memory-message { display:flex; justify-content:space-between; align-items:center; padding:12px 0; border-bottom:1px solid #333; font-size:1.1em; }
-    .entry.highlight { background:#330044; font-weight:700; color:#00ffff; animation:glow 2s infinite alternate; }
-    @keyframes glow { from{ box-shadow:0 0 10px #00ffff } to{ box-shadow:0 0 20px #00ffff } }
-    .entry:last-child,.feed-item:last-child,.memory-message:last-child { border-bottom:none; }
-    .rank-badge { margin-right:10px; font-size:1.2em; }
-    .feed-item span:first-child { color:#ff00ff; }
-    .memory-message { flex-direction:column; align-items:flex-start; }
-    .memory-message span:first-child { color:#00ffff; margin-bottom:5px; }
-    footer { margin:80px 0 40px; font-size:.9em; color:#aaa; text-align:center; }
-    /* MODAL */
-    #donationModal { position:fixed; inset:0; background:rgba(10,0,30,.85); backdrop-filter:blur(5px); display:none; justify-content:center; align-items:center; z-index:9999; }
-    .modal-content { background:#1a0033; padding:40px; border-radius:15px; box-shadow:0 0 20px rgba(255,0,255,.3); text-align:center; max-width:420px; width:90%; }
-    .modal-content h2 { color:#00ffff; margin-bottom:10px; }
-    .modal-content input { width:100%; margin:10px 0; padding:12px; border-radius:8px; border:none; background:#330044; color:#fff; font-size:1em; box-shadow:inset 0 0 8px rgba(255,255,255,.1); }
-    .modal-actions { display:flex; flex-direction:column; gap:10px; margin-top:10px; }
-    .link-btn { background:none; border:none; color:#999; cursor:pointer; }
+    /* ============ Theme & Tokens ============ */
+    :root {
+      --bg-1: #0a001a;
+      --bg-2: #1a0033;
+      --card: #1a0033;
+      --text: #ffffff;
+      --muted: #cccccc;
+      --cyan: #00ffff;
+      --magenta: #ff00ff;
+      --border: #333333;
+
+      --radius: 16px;
+      --shadow-cyan: 0 0 20px rgba(0, 255, 255, 0.3);
+      --shadow-magenta: 0 0 15px #ff00ff;
+
+      /* Spacing scale (8px grid) */
+      --space-1: 8px;
+      --space-2: 16px;
+      --space-3: 24px;
+      --space-4: 32px;
+      --space-5: 40px;
+      --space-6: 48px;
+      --space-8: 64px;
+      --space-10: 80px;
+      --space-12: 96px;
+    }
+
+    /* ============ Base ============ */
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      font-family: 'Orbitron', sans-serif;
+      color: var(--text);
+      background: linear-gradient(145deg, var(--bg-1), var(--bg-2));
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* ============ Header / Hero ============ */
+    header {
+      width: 100%;
+      text-align: center;
+      padding: var(--space-10) var(--space-2) var(--space-4);
+      max-width: 1100px;
+    }
+    header h1 {
+      margin: 0 0 var(--space-2);
+      font-size: clamp(28px, 5vw, 56px);
+      color: var(--cyan);
+      text-shadow: 0 0 15px var(--cyan);
+      letter-spacing: 0.5px;
+      line-height: 1.1;
+    }
+    header p {
+      margin: 0 auto;
+      color: var(--muted);
+      font-size: clamp(14px, 2.5vw, 20px);
+      max-width: 820px;
+    }
+
+    /* ============ Buttons ============ */
+    .cta-button {
+      background: var(--magenta);
+      color: #fff;
+      padding: 14px 28px;
+      font-size: 1.125rem;
+      text-decoration: none;
+      margin-top: var(--space-4);
+      display: inline-block;
+      border-radius: 8px;
+      box-shadow: var(--shadow-magenta);
+      transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+      border: none;
+      cursor: pointer;
+    }
+    .cta-button:hover { transform: scale(1.05); box-shadow: 0 0 25px var(--magenta); }
+    .cta-button[disabled] { opacity: 0.65; cursor: not-allowed; transform: none; }
+
+    .link-btn {
+      background: none;
+      border: none;
+      color: #999;
+      cursor: pointer;
+      font-size: 0.95rem;
+    }
+
+    /* ============ Sections / Cards ============ */
+    section {
+      width: 92%;
+      max-width: 900px;
+      margin: var(--space-8) auto;
+      padding: var(--space-4) var(--space-4);
+      background: var(--card);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-cyan);
+    }
+    section h2 {
+      text-align: center;
+      margin: 0 0 var(--space-3);
+      color: var(--cyan);
+      font-size: 1.8rem;
+      text-shadow: 0 0 8px var(--cyan);
+      letter-spacing: 0.5px;
+    }
+
+    /* ============ Lists ============ */
+    .entry,
+    .feed-item,
+    .memory-message {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: var(--space-2) 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 1.05rem;
+      gap: var(--space-2);
+    }
+    .entry:last-child,
+    .feed-item:last-child,
+    .memory-message:last-child { border-bottom: none; }
+
+    .entry.highlight {
+      background: #330044;
+      font-weight: 700;
+      color: var(--cyan);
+      border-radius: 10px;
+      padding: var(--space-2);
+      animation: glow 2s infinite alternate;
+    }
+    @keyframes glow {
+      from { box-shadow: 0 0 10px var(--cyan); }
+      to   { box-shadow: 0 0 20px var(--cyan); }
+    }
+
+    .rank-badge { margin-right: 10px; font-size: 1.2em; }
+    .feed-item span:first-child { color: var(--magenta); }
+
+    .memory-message { flex-direction: column; align-items: flex-start; }
+    .memory-message span:first-child { color: var(--cyan); margin-bottom: 6px; }
+
+    /* ============ Footer ============ */
+    footer {
+      width: 100%;
+      text-align: center;
+      color: #aaa;
+      font-size: 0.95rem;
+      margin: var(--space-12) 0 var(--space-6);
+      padding: 0 var(--space-2);
+      max-width: 900px;
+    }
+
+    /* ============ Modal ============ */
+    #donationModal[hidden] { display: none !important; }
+
+    #donationModal {
+      position: fixed;
+      inset: 0;
+      background: rgba(10, 0, 30, 0.85);
+      backdrop-filter: blur(5px);
+      display: flex; /* toggled with [hidden] */
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      padding: var(--space-2);
+    }
+    .modal-content {
+      position: relative;
+      width: 100%;
+      max-width: 440px;
+      background: var(--card);
+      border-radius: var(--radius);
+      padding: var(--space-5);
+      box-shadow: 0 0 20px rgba(255, 0, 255, 0.3);
+      text-align: center;
+    }
+    .modal-content h2 { color: var(--cyan); margin: 0 0 var(--space-1); }
+    .modal-content p  { color: var(--muted); margin: 0 0 var(--space-3); }
+
+    .modal-close {
+      position: absolute;
+      top: 10px;
+      right: 12px;
+      font-size: 22px;
+      line-height: 1;
+      background: none;
+      border: none;
+      color: #bbb;
+      cursor: pointer;
+    }
+    .modal-close:hover { color: #fff; }
+
+    .modal-content input {
+      width: 100%;
+      margin: 10px 0;
+      padding: 12px;
+      border-radius: 10px;
+      border: none;
+      background: #330044;
+      color: #fff;
+      font-size: 1rem;
+      box-shadow: inset 0 0 8px rgba(255, 255, 255, 0.08);
+    }
+
+    .modal-actions {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-2);
+      margin-top: var(--space-2);
+    }
+
+    /* ============ Utilities ============ */
+    .visually-hidden {
+      position: absolute !important;
+      width: 1px; height: 1px;
+      padding: 0; margin: -1px;
+      overflow: hidden; clip: rect(0 0 0 0);
+      white-space: nowrap; border: 0;
+    }
+
+    /* ============ Responsive Tweaks ============ */
+    @media (min-width: 1024px) {
+      section { padding: var(--space-5) var(--space-5); }
+    }
   </style>
 </head>
 <body>
+  <noscript>
+    <p style="color:#fff; padding: 16px; text-align:center;">
+      JavaScript is required to use Crypto Karma.
+    </p>
+  </noscript>
+
   <!-- HEADER -->
   <header>
     <h1>Immortality Is Just a Transaction Away</h1>
@@ -44,16 +257,24 @@
   </header>
 
   <!-- MODAL -->
-  <div id="donationModal">
+  <div id="donationModal" role="dialog" aria-modal="true" aria-labelledby="donationTitle" hidden>
     <div class="modal-content">
-      <h2>One Last Step 🧠</h2>
-      <p style="color:#ccc;">(Optional) Leave a name or dedication to appear on the wall</p>
+      <button class="modal-close" id="closeModal" aria-label="Close modal">×</button>
+      <h2 id="donationTitle">One Last Step 🧠</h2>
+      <p>(Optional) Leave a name or dedication to appear on the wall.</p>
+
+      <label class="visually-hidden" for="walletName">Wallet or ENS name</label>
       <input type="text" id="walletName" placeholder="Wallet or ENS name" />
+
+      <label class="visually-hidden" for="displayName">Dedication on the wall</label>
       <input type="text" id="displayName" placeholder="Your whisper on the wall..." />
-      <input type="number" id="amountUSD" placeholder="Amount in USD (optional)" min="1" step="1" />
+
+      <label class="visually-hidden" for="amountUSD">Amount in USD</label>
+      <input type="number" id="amountUSD" placeholder="Amount in USD (optional, default 5)" min="1" step="1" />
+
       <div class="modal-actions">
         <button id="submitDonation" class="cta-button">Send & Continue</button>
-        <button id="closeModal" class="link-btn">Cancel</button>
+        <button id="cancelDonation" class="link-btn">Cancel</button>
       </div>
     </div>
   </div>
@@ -76,15 +297,17 @@
 
   <!-- FOOTER -->
   <footer>
-    This is a public karma experiment. All donations go directly to the creator. No refunds. No promises. Only memory.
+    This is a public karma experiment. All donations go directly to the creator.
+    No refunds. No promises. Only memory.
   </footer>
 
-  <!-- Firebase Leaderboard / Feeds -->
+  <!-- Firebase Leaderboard / Feeds (your existing realtime script) -->
   <script type="module" src="script.js"></script>
 
   <!-- Modal & Checkout Logic -->
   <script>
-    const ENDPOINT = 'https://createcheckout-w5sk7mcmoq-uc.a.run.app';
+    // Prefer the stable Cloud Functions URL (it won’t change when a new revision is created)
+    const ENDPOINT = 'https://us-central1-crypto-karma.cloudfunctions.net/createCheckout';
 
     function showConfetti() {
       const wrap = document.createElement('div');
@@ -94,6 +317,7 @@
       wrap.style.pointerEvents = 'none'; wrap.style.zIndex = 9998;
       wrap.innerHTML = '<canvas id="confetti-canvas"></canvas>';
       document.body.appendChild(wrap);
+
       const s = document.createElement('script');
       s.src = 'https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js';
       s.onload = () => {
@@ -104,23 +328,58 @@
       document.body.appendChild(s);
     }
 
+    // Modal refs
     const modal = document.getElementById('donationModal');
-    document.getElementById('openModalBtn').addEventListener('click', (e) => {
-      e.preventDefault();
-      modal.style.display = 'flex';
+    const openBtn = document.getElementById('openModalBtn');
+    const closeBtn = document.getElementById('closeModal');
+    const cancelBtn = document.getElementById('cancelDonation');
+    const submitBtn = document.getElementById('submitDonation');
+
+    // Open / close helpers
+    function openModal() {
+      modal.hidden = false;
+      // focus first input
+      setTimeout(() => document.getElementById('walletName')?.focus(), 0);
+    }
+    function closeModal() {
+      modal.hidden = true;
+    }
+
+    // Open / close events
+    openBtn.addEventListener('click', (e) => { e.preventDefault(); openModal(); });
+    closeBtn.addEventListener('click', closeModal);
+    cancelBtn.addEventListener('click', closeModal);
+
+    // Close when clicking outside content
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) closeModal();
     });
-    document.getElementById('closeModal').addEventListener('click', () => {
-      modal.style.display = 'none';
+    // Escape key closes modal
+    window.addEventListener('keydown', (e) => {
+      if (!modal.hidden && e.key === 'Escape') closeModal();
     });
 
-    document.getElementById('submitDonation').addEventListener('click', async () => {
+    // Submit checkout
+    submitBtn.addEventListener('click', async () => {
       const walletName = document.getElementById('walletName').value.trim() || 'Anonymous';
       const displayName = document.getElementById('displayName').value.trim();
-      const amountStr  = document.getElementById('amountUSD').value.trim();
-      const amountUSD  = amountStr ? Number(amountStr) : undefined;
+      const amountStr   = document.getElementById('amountUSD').value.trim();
 
-      const payload = { walletName, displayName };
-      if (!Number.isNaN(amountUSD) && amountUSD > 0) payload.amountUSD = amountUSD;
+      // Default to $5 if left empty
+      const amountUSD = amountStr ? Number(amountStr) : 5;
+
+      if (Number.isNaN(amountUSD) || amountUSD <= 0) {
+        alert('Please enter a valid USD amount (> 0).');
+        return;
+      }
+
+      // Build thank you redirect relative to current page
+      const redirectURL = new URL('thankyou.html', window.location.href).href;
+
+      const payload = { walletName, displayName, amountUSD, redirectURL };
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Creating checkout...';
 
       try {
         const res = await fetch(ENDPOINT, {
@@ -129,24 +388,30 @@
           body: JSON.stringify(payload)
         });
 
+        const text = await res.text();      // easier debugging if JSON fails
+        let data = {};
+        try { data = JSON.parse(text); } catch (_) { /* ignore */ }
+
         if (!res.ok) {
-          const text = await res.text();
           console.error('Checkout error:', res.status, text);
-          alert('Could not start checkout. Try a different amount or later.');
+          alert('Could not start checkout. Please try again.');
           return;
         }
 
-        const { checkoutUrl } = await res.json();
-        if (checkoutUrl) {
+        if (data.checkoutUrl) {
           showConfetti();
-          modal.style.display = 'none';
-          setTimeout(() => { window.location.href = checkoutUrl; }, 1200);
+          closeModal();
+          setTimeout(() => { window.location.href = data.checkoutUrl; }, 1000);
         } else {
+          console.error('Unexpected response:', text);
           alert('Missing checkout URL. Please try again.');
         }
       } catch (err) {
         console.error('Checkout Error:', err);
         alert('Network error. Please try again.');
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Send & Continue';
       }
     });
   </script>
