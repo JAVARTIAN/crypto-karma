@@ -9,99 +9,168 @@
 
   <style>
     :root {
+      /* Colors */
       --cyan: #00ffff;
       --magenta: #ff00ff;
-      --panel: #1a0033;
-      --bg1: #0a001a;
+      --panel: #14002a;
+      --bg1: #070016;
       --bg2: #1a0033;
+      --border: #2a2050;
+
+      /* Spacing scale */
+      --s-1: 8px;
+      --s-2: 12px;
+      --s-3: 16px;
+      --s-4: 24px;
+      --s-5: 32px;
+      --s-6: 40px;
+      --s-7: 56px;
+      --s-8: 72px;
+
+      /* Radius & shadows */
+      --radius: 18px;
+      --glow: 0 0 24px rgba(0,255,255,0.25);
+      --glow-strong: 0 0 36px rgba(0,255,255,0.28);
     }
+
     * { box-sizing: border-box; }
+    html, body { height: 100%; }
     body {
       margin: 0;
       font-family: 'Orbitron', sans-serif;
+      line-height: 1.65;
+      letter-spacing: 0.2px;
       background: linear-gradient(145deg, var(--bg1), var(--bg2));
       color: #fff;
       display: flex;
       flex-direction: column;
       align-items: center;
-      min-height: 100vh;
     }
+
+    /* Page container to keep wide layouts comfy */
+    .container {
+      width: min(1200px, 92vw);
+      margin-inline: auto;
+    }
+
     header {
-      padding: 60px 20px 10px;
+      width: 100%;
+      padding: var(--s-8) var(--s-3) var(--s-5);
       text-align: center;
     }
     h1 {
-      font-size: 2.6em;
+      font-size: clamp(2.2rem, 5vw, 3rem);
       color: var(--cyan);
-      text-shadow: 0 0 15px var(--cyan);
-      margin: 0 0 12px 0;
+      text-shadow: 0 0 18px var(--cyan);
+      margin: 0 0 var(--s-3) 0;
     }
     p.lead {
-      font-size: 1.15em;
-      color: #ccc;
-      max-width: 640px;
-      margin: 0 auto 24px;
-      line-height: 1.5;
+      font-size: clamp(1rem, 2.2vw, 1.2rem);
+      color: #cfd3ff;
+      max-width: 48ch;
+      margin: 0 auto var(--s-4);
     }
-    .cta {
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--s-3);
+      justify-content: center;
+      margin-top: var(--s-2);
+    }
+    .btn {
       background: var(--magenta);
       color: #fff;
-      padding: 12px 24px;
-      font-size: 1.05em;
+      padding: 14px 26px;
+      font-size: 1.05rem;
       text-decoration: none;
-      border-radius: 6px;
-      box-shadow: 0 0 15px var(--magenta);
-      transition: transform .2s ease, box-shadow .2s ease;
-      display: inline-block;
-      margin-top: 8px;
+      border-radius: 10px;
+      box-shadow: 0 0 18px var(--magenta);
+      transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      border: none;
+      cursor: pointer;
     }
-    .cta:hover { transform: scale(1.05); box-shadow: 0 0 25px var(--magenta); }
+    .btn:hover { transform: translateY(-1px) scale(1.02); box-shadow: 0 0 26px var(--magenta); }
+    .btn.secondary {
+      background: transparent;
+      border: 1px solid var(--magenta);
+      box-shadow: none;
+    }
 
-    .grid {
-      width: 92%;
-      max-width: 1000px;
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 28px;
-      padding: 30px 0 60px;
+    /* Main grid: big comfortable gaps */
+    main {
+      width: 100%;
+      padding: var(--s-6) 0 var(--s-8);
     }
-    @media (min-width: 900px) {
-      .grid { grid-template-columns: 1fr 1fr; }
+    .grid {
+      display: grid;
+      gap: clamp(24px, 4vw, 48px);
+      grid-template-columns: 1fr;
+    }
+    @media (min-width: 980px) {
+      .grid {
+        grid-template-columns: 1fr 1fr;
+      }
     }
 
     .panel {
       background: var(--panel);
-      border-radius: 14px;
-      padding: 22px;
-      box-shadow: 0 0 20px rgba(0, 255, 255, 0.25);
+      border-radius: var(--radius);
+      padding: clamp(20px, 3vw, 32px);
+      box-shadow: var(--glow);
+      border: 1px solid var(--border);
     }
     .panel h2 {
-      margin: 0 0 16px 0;
+      margin: 0 0 var(--s-4) 0;
       text-align: center;
       color: var(--cyan);
-      text-shadow: 0 0 8px var(--cyan);
-      font-size: 1.4em;
+      text-shadow: 0 0 10px var(--cyan);
+      font-size: clamp(1.2rem, 2.6vw, 1.6rem);
+      letter-spacing: 0.3px;
     }
+
+    /* List rows with more vertical space */
     .entry, .feed-item, .memory-message {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 10px 0;
-      border-bottom: 1px solid #332255;
-      font-size: 1.02em;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 1.06rem;
     }
     .entry:last-child, .feed-item:last-child, .memory-message:last-child { border-bottom: none; }
-    .entry.highlight { background: #330044; font-weight: 700; color: var(--cyan); border-radius: 8px; padding: 12px; }
+
+    .entry.highlight {
+      background: #2a0044;
+      font-weight: 700;
+      color: var(--cyan);
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 8px;
+      box-shadow: var(--glow-strong);
+    }
     .rank-badge { margin-right: 10px; font-size: 1.1em; }
+
     .feed-item span:first-child { color: var(--magenta); }
-    .memory-message { flex-direction: column; align-items: flex-start; }
-    .memory-message span:first-child { color: var(--cyan); margin-bottom: 6px; }
+
+    .memory-message {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 6px;
+    }
+    .memory-message span:first-child {
+      color: var(--cyan);
+      margin-bottom: 2px;
+    }
 
     footer {
-      color: #aaa;
-      font-size: .9em;
+      color: #aab;
+      font-size: .95rem;
       text-align: center;
-      margin: 30px 0 40px;
+      margin: var(--s-6) 0 var(--s-7);
     }
 
     /* Confetti canvas wrapper */
@@ -111,42 +180,50 @@
 <body>
   <div id="confetti-wrap"><canvas id="confetti-canvas"></canvas></div>
 
-  <header>
+  <header class="container">
     <h1>You’re part of the Crypto Karma ritual 🔮</h1>
     <p class="lead">
       Your presence has been recorded.<br/>
-      Your name is now etched in the blockchain of memory.<br/><br/>
+      Your name is now etched in the blockchain of memory.
+      <br/><br/>
       Watch the wall update live below. If it doesn’t show instantly, it usually appears within moments.
     </p>
-    <a class="cta" href="index.html">Return to Crypto Karma</a>
+    <div class="actions">
+      <a class="btn" href="index.html">Return to Crypto Karma</a>
+      <button class="btn secondary share">Share your immortality ✨</button>
+      <button class="btn secondary tweet">Post on X (Twitter) 🖤</button>
+    </div>
   </header>
 
-  <main class="grid">
-    <section class="panel">
-      <h2>🔥 Hall of Crypto Karma (Top 10)</h2>
-      <div id="leaderboard">Loading...</div>
-    </section>
+  <main class="container">
+    <div class="grid">
+      <section class="panel">
+        <h2>🔥 Hall of Crypto Karma (Top 10)</h2>
+        <div id="leaderboard">Loading...</div>
+      </section>
 
-    <section class="panel">
-      <h2>⚡ Live Donation Feed</h2>
-      <div id="liveFeed">Loading...</div>
-    </section>
+      <section class="panel">
+        <h2>⚡ Live Donation Feed</h2>
+        <div id="liveFeed">Loading...</div>
+      </section>
 
-    <section class="panel" style="grid-column: 1 / -1;">
-      <h2>💭 Memory Wall</h2>
-      <div id="memoryWall">Loading...</div>
-    </section>
+      <section class="panel" style="grid-column: 1 / -1;">
+        <h2>💭 Memory Wall</h2>
+        <div id="memoryWall">Loading...</div>
+      </section>
+    </div>
   </main>
 
-  <footer>
+  <footer class="container">
     Thank you for fueling the experiment. No refunds. No promises. Only memory.
   </footer>
 
-  <!-- Reuse your realtime renderer -->
+  <!-- Reuse realtime renderer -->
   <script type="module" src="script.js"></script>
 
-  <!-- Confetti on load -->
+  <!-- Confetti + Robust Share + Tweet -->
   <script>
+    // Confetti on load
     (function confettiBurst(){
       const s = document.createElement('script');
       s.src = 'https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js';
@@ -159,6 +236,52 @@
       };
       document.body.appendChild(s);
     })();
+
+    // Build a correct link even on GitHub Pages subpaths
+    const shareUrl = new URL('index.html', window.location.href).href;
+    const shareText = "I just became immortal on Crypto Karma 🔮✨ Join me:";
+
+    // Cross-browser Share button (mobile native, desktop copy fallback)
+    document.querySelector('.share').addEventListener('click', async () => {
+      try {
+        if (navigator.share) {
+          await navigator.share({ title: "Crypto Karma", text: shareText, url: shareUrl });
+          return;
+        }
+      } catch (e) { console.log('navigator.share failed:', e); }
+
+      try {
+        if (navigator.clipboard && window.isSecureContext) {
+          await navigator.clipboard.writeText(`${shareText} ${shareUrl}`);
+          alert("🔗 Link copied! Spread your immortality.");
+          return;
+        }
+      } catch (e) { console.log('clipboard API failed:', e); }
+
+      const ta = document.createElement('textarea');
+      ta.value = `${shareText} ${shareUrl}`;
+      ta.style.position = 'fixed';
+      ta.style.left = '-9999px';
+      document.body.appendChild(ta);
+      ta.focus();
+      ta.select();
+      try {
+        document.execCommand('copy');
+        alert("🔗 Link copied! Spread your immortality.");
+      } catch (_) {
+        prompt("Copy this link:", `${shareText} ${shareUrl}`);
+      }
+      ta.remove();
+    });
+
+    // Tweet (X) button — opens prefilled composer
+    document.querySelector('.tweet').addEventListener('click', () => {
+      const text = encodeURIComponent("I just became immortal on Crypto Karma 🔮✨");
+      const url  = encodeURIComponent(shareUrl);
+      const hashtags = "CryptoKarma,Web3";
+      const intentUrl = `https://twitter.com/intent/tweet?text=${text}&url=${url}&hashtags=${hashtags}`;
+      window.open(intentUrl, '_blank', 'noopener,noreferrer');
+    });
   </script>
 </body>
 </html>
