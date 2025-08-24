@@ -8,165 +8,33 @@
   <title>Hall of Crypto Karma</title>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap" rel="stylesheet" />
   <link rel="icon" href="favicon.ico" type="image/x-icon" />
-
   <style>
-    body {
-      margin: 0;
-      font-family: 'Orbitron', sans-serif;
-      background: linear-gradient(145deg, #0a001a, #1a0033);
-      color: #fff;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-
-    header {
-      padding: 60px 20px 20px;
-      text-align: center;
-    }
-
-    header h1 {
-      font-size: 3em;
-      margin: 0;
-      color: #00ffff;
-      text-shadow: 0 0 15px #00ffff;
-    }
-
-    header p {
-      font-size: 1.2em;
-      color: #ccc;
-      margin-top: 10px;
-    }
-
-    .cta-button {
-      background: #ff00ff;
-      color: #fff;
-      padding: 15px 30px;
-      font-size: 1.2em;
-      text-decoration: none;
-      margin-top: 30px;
-      display: inline-block;
-      border-radius: 5px;
-      box-shadow: 0 0 15px #ff00ff;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
-
-    .cta-button:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 25px #ff00ff;
-    }
-
-    .leaderboard, .live-feed, .memory-wall {
-      width: 90%;
-      max-width: 800px;
-      margin: 50px auto;
-      background: #1a0033;
-      border-radius: 15px;
-      padding: 25px;
-      box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
-    }
-
-    .leaderboard h2, .live-feed h2, .memory-wall h2 {
-      text-align: center;
-      margin-bottom: 25px;
-      color: #00ffff;
-      font-size: 1.8em;
-      text-shadow: 0 0 8px #00ffff;
-    }
-
-    .entry, .feed-item, .memory-message {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 12px 0;
-      border-bottom: 1px solid #333;
-      font-size: 1.1em;
-    }
-
-    .entry.highlight {
-      background: #330044;
-      font-weight: bold;
-      color: #00ffff;
-      animation: glow 2s infinite alternate;
-    }
-
-    @keyframes glow {
-      from { box-shadow: 0 0 10px #00ffff; }
-      to { box-shadow: 0 0 20px #00ffff; }
-    }
-
-    .entry:last-child, .feed-item:last-child, .memory-message:last-child {
-      border-bottom: none;
-    }
-
-    .rank-badge {
-      margin-right: 10px;
-      font-size: 1.2em;
-    }
-
-    .feed-item span:first-child {
-      color: #ff00ff;
-    }
-
-    .memory-message {
-      flex-direction: column;
-      align-items: flex-start;
-    }
-
-    .memory-message span:first-child {
-      color: #00ffff;
-      margin-bottom: 5px;
-    }
-
-    footer {
-      margin: 80px 0 40px;
-      font-size: 0.9em;
-      color: #aaa;
-      text-align: center;
-    }
-
+    body { margin:0; font-family:'Orbitron',sans-serif; background:linear-gradient(145deg,#0a001a,#1a0033); color:#fff; display:flex; flex-direction:column; align-items:center; }
+    header { padding:60px 20px 20px; text-align:center; }
+    header h1 { font-size:3em; margin:0; color:#00ffff; text-shadow:0 0 15px #00ffff; }
+    header p { font-size:1.2em; color:#ccc; margin-top:10px; }
+    .cta-button { background:#ff00ff; color:#fff; padding:15px 30px; font-size:1.2em; text-decoration:none; margin-top:30px; display:inline-block; border-radius:5px; box-shadow:0 0 15px #ff00ff; transition:transform .2s ease,box-shadow .2s ease; }
+    .cta-button:hover { transform:scale(1.05); box-shadow:0 0 25px #ff00ff; }
+    .leaderboard,.live-feed,.memory-wall { width:90%; max-width:800px; margin:50px auto; background:#1a0033; border-radius:15px; padding:25px; box-shadow:0 0 20px rgba(0,255,255,.3); }
+    .leaderboard h2,.live-feed h2,.memory-wall h2 { text-align:center; margin-bottom:25px; color:#00ffff; font-size:1.8em; text-shadow:0 0 8px #00ffff; }
+    .entry,.feed-item,.memory-message { display:flex; justify-content:space-between; align-items:center; padding:12px 0; border-bottom:1px solid #333; font-size:1.1em; }
+    .entry.highlight { background:#330044; font-weight:700; color:#00ffff; animation:glow 2s infinite alternate; }
+    @keyframes glow { from{ box-shadow:0 0 10px #00ffff } to{ box-shadow:0 0 20px #00ffff } }
+    .entry:last-child,.feed-item:last-child,.memory-message:last-child { border-bottom:none; }
+    .rank-badge { margin-right:10px; font-size:1.2em; }
+    .feed-item span:first-child { color:#ff00ff; }
+    .memory-message { flex-direction:column; align-items:flex-start; }
+    .memory-message span:first-child { color:#00ffff; margin-bottom:5px; }
+    footer { margin:80px 0 40px; font-size:.9em; color:#aaa; text-align:center; }
     /* MODAL */
-    #donationModal {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: rgba(10, 0, 30, 0.85);
-      backdrop-filter: blur(5px);
-      display: none;
-      justify-content: center;
-      align-items: center;
-      z-index: 9999;
-    }
-
-    .modal-content {
-      background: #1a0033;
-      padding: 40px;
-      border-radius: 15px;
-      box-shadow: 0 0 20px rgba(255, 0, 255, 0.3);
-      text-align: center;
-      max-width: 400px;
-      width: 90%;
-    }
-
-    .modal-content h2 {
-      color: #00ffff;
-      margin-bottom: 10px;
-    }
-
-    .modal-content input {
-      width: 100%;
-      margin: 10px 0;
-      padding: 12px;
-      border-radius: 8px;
-      border: none;
-      background: #330044;
-      color: #fff;
-      font-size: 1em;
-      box-shadow: inset 0 0 8px rgba(255,255,255,0.1);
-    }
+    #donationModal { position:fixed; inset:0; background:rgba(10,0,30,.85); backdrop-filter:blur(5px); display:none; justify-content:center; align-items:center; z-index:9999; }
+    .modal-content { background:#1a0033; padding:40px; border-radius:15px; box-shadow:0 0 20px rgba(255,0,255,.3); text-align:center; max-width:420px; width:90%; }
+    .modal-content h2 { color:#00ffff; margin-bottom:10px; }
+    .modal-content input { width:100%; margin:10px 0; padding:12px; border-radius:8px; border:none; background:#330044; color:#fff; font-size:1em; box-shadow:inset 0 0 8px rgba(255,255,255,.1); }
+    .modal-actions { display:flex; flex-direction:column; gap:10px; margin-top:10px; }
+    .link-btn { background:none; border:none; color:#999; cursor:pointer; }
   </style>
 </head>
-
 <body>
   <!-- HEADER -->
   <header>
@@ -182,8 +50,11 @@
       <p style="color:#ccc;">(Optional) Leave a name or dedication to appear on the wall</p>
       <input type="text" id="walletName" placeholder="Wallet or ENS name" />
       <input type="text" id="displayName" placeholder="Your whisper on the wall..." />
-      <button id="submitDonation" class="cta-button">Send & Continue</button>
-      <button id="closeModal" style="margin-top:15px;background:none;border:none;color:#999;cursor:pointer;">Cancel</button>
+      <input type="number" id="amountUSD" placeholder="Amount in USD (optional)" min="1" step="1" />
+      <div class="modal-actions">
+        <button id="submitDonation" class="cta-button">Send & Continue</button>
+        <button id="closeModal" class="link-btn">Cancel</button>
+      </div>
     </div>
   </div>
 
@@ -208,72 +79,76 @@
     This is a public karma experiment. All donations go directly to the creator. No refunds. No promises. Only memory.
   </footer>
 
-  <!-- Firebase Leaderboard Script -->
+  <!-- Firebase Leaderboard / Feeds -->
   <script type="module" src="script.js"></script>
 
   <!-- Modal & Checkout Logic -->
   <script>
+    const ENDPOINT = 'https://createcheckout-w5sk7mcmoq-uc.a.run.app';
+
     function showConfetti() {
-      const confetti = document.createElement('div');
-      confetti.style.position = 'fixed';
-      confetti.style.top = 0;
-      confetti.style.left = 0;
-      confetti.style.width = '100%';
-      confetti.style.height = '100%';
-      confetti.style.pointerEvents = 'none';
-      confetti.style.zIndex = 9998;
-      confetti.innerHTML = '<canvas id="confetti-canvas"></canvas>';
-      document.body.appendChild(confetti);
-      const script = document.createElement('script');
-      script.src = 'https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js';
-      script.onload = () => {
-        const myConfetti = window.confetti.create(document.getElementById('confetti-canvas'), { resize: true });
-        myConfetti({ particleCount: 200, spread: 160 });
-        setTimeout(() => confetti.remove(), 3000);
+      const wrap = document.createElement('div');
+      wrap.style.position = 'fixed';
+      wrap.style.top = 0; wrap.style.left = 0;
+      wrap.style.width = '100%'; wrap.style.height = '100%';
+      wrap.style.pointerEvents = 'none'; wrap.style.zIndex = 9998;
+      wrap.innerHTML = '<canvas id="confetti-canvas"></canvas>';
+      document.body.appendChild(wrap);
+      const s = document.createElement('script');
+      s.src = 'https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js';
+      s.onload = () => {
+        const c = window.confetti.create(document.getElementById('confetti-canvas'), { resize: true });
+        c({ particleCount: 200, spread: 160 });
+        setTimeout(() => wrap.remove(), 3000);
       };
-      document.body.appendChild(script);
+      document.body.appendChild(s);
     }
 
+    const modal = document.getElementById('donationModal');
     document.getElementById('openModalBtn').addEventListener('click', (e) => {
       e.preventDefault();
-      document.getElementById('donationModal').style.display = 'flex';
+      modal.style.display = 'flex';
     });
-
     document.getElementById('closeModal').addEventListener('click', () => {
-      document.getElementById('donationModal').style.display = 'none';
+      modal.style.display = 'none';
     });
 
-   document.getElementById('submitDonation').addEventListener('click', async () => {
-  const walletName = document.getElementById('walletName').value.trim();
-  const displayName = document.getElementById('displayName').value.trim();
+    document.getElementById('submitDonation').addEventListener('click', async () => {
+      const walletName = document.getElementById('walletName').value.trim() || 'Anonymous';
+      const displayName = document.getElementById('displayName').value.trim();
+      const amountStr  = document.getElementById('amountUSD').value.trim();
+      const amountUSD  = amountStr ? Number(amountStr) : undefined;
 
-  try {
-    const res = await fetch('https://us-central1-crypto-karma.cloudfunctions.net/api/create-checkout', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ walletName, displayName })
+      const payload = { walletName, displayName };
+      if (!Number.isNaN(amountUSD) && amountUSD > 0) payload.amountUSD = amountUSD;
+
+      try {
+        const res = await fetch(ENDPOINT, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+
+        if (!res.ok) {
+          const text = await res.text();
+          console.error('Checkout error:', res.status, text);
+          alert('Could not start checkout. Try a different amount or later.');
+          return;
+        }
+
+        const { checkoutUrl } = await res.json();
+        if (checkoutUrl) {
+          showConfetti();
+          modal.style.display = 'none';
+          setTimeout(() => { window.location.href = checkoutUrl; }, 1200);
+        } else {
+          alert('Missing checkout URL. Please try again.');
+        }
+      } catch (err) {
+        console.error('Checkout Error:', err);
+        alert('Network error. Please try again.');
+      }
     });
-
-    const text = await res.text();
-    console.log("🔥 DEBUG response text:", text);
-
-    const json = JSON.parse(text);
-    if (json.checkoutUrl) {
-      showConfetti();
-      document.getElementById('donationModal').style.display = 'none';
-      setTimeout(() => {
-        window.location.href = json.checkoutUrl;
-      }, 1200);
-    } else {
-      alert("Missing checkout URL. Check console for details.");
-      console.log("Parsed JSON:", json);
-    }
-  } catch (err) {
-    console.error("Checkout Error:", err);
-    alert("Something went wrong. Try again.");
-  }
-});
-
   </script>
 </body>
 </html>
